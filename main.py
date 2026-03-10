@@ -2,7 +2,7 @@ import spellchecker
 
 sc = spellchecker.SpellChecker()
 
-while(True):
+while True:
     sc.printMenu()
 
     txtIn = input()

@@ -5,12 +5,13 @@ import multiDictionary as md
 class SpellChecker:
 
     def __init__(self):
-        pass
+        self.multi_dict = md.MultiDictionary()
 
     def handleSentence(self, txtIn, language):
         pass
 
-    def printMenu(self):
+    @classmethod
+    def printMenu(cls):
         print("______________________________\n" +
               "      SpellChecker 101\n"+
               "______________________________\n " +
@@ -23,4 +24,7 @@ class SpellChecker:
 
 
 def replaceChars(text):
-    pass
+    chars = "\\'*_{}[]()><#-.!$%^;,/&£€\"?=§°:"
+    for c in chars:
+        text = text.replace(c, "")
+    return text
