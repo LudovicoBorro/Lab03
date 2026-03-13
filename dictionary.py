@@ -3,7 +3,7 @@ class Dictionary:
         self._dict = []
 
     def loadDictionary(self,path):
-        with open(path,'r') as f:
+        with open(path,'r', encoding="utf-8") as f:
             for line in f.readlines():
                 self.dict.append(line.strip())
 

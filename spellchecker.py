@@ -8,7 +8,19 @@ class SpellChecker:
         self.multi_dict = md.MultiDictionary()
 
     def handleSentence(self, txtIn, language):
-        pass
+        cont = 0
+        self.multi_dict.load_dicts()
+        start_time = time.time()
+        parole = self.multi_dict.searchWord(txtIn.lower().strip(), language)
+        end_time = time.time()
+        print("-----------------")
+        print("Using contains")
+        for word in parole:
+            if word.corretta is False:
+                print(word)
+                cont += 1
+        print(f"Nella frase sono stati rilevati {cont} errori!")
+        print(f"L'algoritmo ha impiegato {end_time - start_time:.6f} secondi")
 
     @classmethod
     def printMenu(cls):
