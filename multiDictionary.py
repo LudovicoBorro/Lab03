@@ -9,6 +9,13 @@ class MultiDictionary:
         self.spagnolo = d.Dictionary()
         self.parole_frase: list[rw.RichWord] = []
 
+    def _get_dict(self, language):
+        lang = language.lower().strip()
+        if lang == "italian": return self.italiano
+        if lang == "english": return self.inglese
+        if lang == "spanish": return self.spagnolo
+        return None
+
     def load_dicts(self):
         self.italiano.loadDictionary("resources/Italian.txt")
         self.inglese.loadDictionary("resources/English.txt")
@@ -24,87 +31,27 @@ class MultiDictionary:
 
     def searchWord(self, words, language):
         self.parole_frase = []
-        parole = words.split()
-        if language.lower().strip() == "italian":
-            for word in parole:
-                word_item = rw.RichWord(word.strip())
-                if self.italiano.dict.__contains__(word):
-                    word_item.corretta = True
-                else:
-                    word_item.corretta = False
-                self.parole_frase.append(word_item)
-        elif language.lower().strip() == "english":
-            for word in parole:
-                word_item = rw.RichWord(word)
-                if self.inglese.dict.__contains__(word):
-                    word_item.corretta = True
-                else:
-                    word_item.corretta = False
-                self.parole_frase.append(word_item)
-        elif language.lower().strip() == "spanish":
-            for word in parole:
-                word_item = rw.RichWord(word)
-                if self.spagnolo.dict.__contains__(word):
-                    word_item.corretta = True
-                else:
-                    word_item.corretta = False
-                self.parole_frase.append(word_item)
+        dizionario = self._get_dict(language)
+        for word in words.split():
+            word_item = rw.RichWord(word.strip())
+            word_item.corretta = dizionario.dict.__contains__(word.strip())
+            self.parole_frase.append(word_item)
         return self.parole_frase
 
     def searchWordLinear(self, words, language):
         self.parole_frase = []
-        parole = words.split()
-        if language.lower().strip() == "italian":
-            for word in parole:
-                word_item = rw.RichWord(word.strip())
-                if self.italiano.searchLinear(word.strip()):
-                    word_item.corretta = True
-                else:
-                    word_item.corretta = False
-                self.parole_frase.append(word_item)
-        elif language.lower().strip() == "english":
-            for word in parole:
-                word_item = rw.RichWord(word.strip())
-                if self.inglese.searchLinear(word.strip()):
-                    word_item.corretta = True
-                else:
-                    word_item.corretta = False
-                self.parole_frase.append(word_item)
-        elif language.lower().strip() == "spanish":
-            for word in parole:
-                word_item = rw.RichWord(word.strip())
-                if self.spagnolo.searchLinear(word.strip()):
-                    word_item.corretta = True
-                else:
-                    word_item.corretta = False
-                self.parole_frase.append(word_item)
+        dizionario = self._get_dict(language)
+        for word in words.split():
+            word_item = rw.RichWord(word.strip())
+            word_item.corretta = dizionario.searchLinear(word.strip())
+            self.parole_frase.append(word_item)
         return self.parole_frase
 
     def searchWordDichotomic(self, words, language):
         self.parole_frase = []
-        parole = words.split()
-        if language.lower().strip() == "italian":
-            for word in parole:
-                word_item = rw.RichWord(word.strip())
-                if self.italiano.searchDichotomic(word.strip()):
-                    word_item.corretta = True
-                else:
-                    word_item.corretta = False
-                self.parole_frase.append(word_item)
-        elif language.lower().strip() == "english":
-            for word in parole:
-                word_item = rw.RichWord(word.strip())
-                if self.inglese.searchDichotomic(word.strip()):
-                    word_item.corretta = True
-                else:
-                    word_item.corretta = False
-                self.parole_frase.append(word_item)
-        elif language.lower().strip() == "spanish":
-            for word in parole:
-                word_item = rw.RichWord(word.strip())
-                if self.spagnolo.searchDichotomic(word.strip()):
-                    word_item.corretta = True
-                else:
-                    word_item.corretta = False
-                self.parole_frase.append(word_item)
+        dizionario = self._get_dict(language)
+        for word in words.split():
+            word_item = rw.RichWord(word.strip())
+            word_item.corretta = dizionario.searchDichotomic(word.strip())
+            self.parole_frase.append(word_item)
         return self.parole_frase

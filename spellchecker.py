@@ -6,9 +6,9 @@ class SpellChecker:
 
     def __init__(self):
         self.multi_dict = md.MultiDictionary()
+        self.multi_dict.load_dicts()
 
     def handleSentence(self, txtIn, language):
-        self.multi_dict.load_dicts()
         txtIn = replaceChars(txtIn)
         # Ricerca usando __contains__
         start_time = time.time()
